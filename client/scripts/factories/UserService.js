@@ -1,5 +1,5 @@
-myApp.factory("UserService", ["$http", "$location", function($http, $location){
-  console.log("User Service Loaded");
+myApp.factory('UserService', ['$http', '$location', function($http, $location){
+  console.log('User Service Loaded');
 
   var userObject = {};
 
@@ -7,22 +7,22 @@ myApp.factory("UserService", ["$http", "$location", function($http, $location){
     userObject : userObject,
 
     getuser : function(){
-      $http.get("/user").then(function(response) {
+      $http.get('/user').then(function(response) {
           if(response.data.username) {
               // user has a current session on the server
               userObject.userName = response.data.username;
-              // console.log("User Data: ", userObject.userName);
+              // console.log('User Data: ', userObject.userName);
           } else {
               // user has no session, bounce them back to the login page
-              $location.path("/home");
+              $location.path('/home');
           }
       });
     },
 
     logout : function() {
-        $http.get("/user/logout").then(function(response) {
-          console.log("logged out");
-          $location.path("/home");
+        $http.get('/user/logout').then(function(response) {
+          console.log('logged out');
+          $location.path('/home');
         });
     }
   };

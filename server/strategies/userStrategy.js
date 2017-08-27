@@ -1,11 +1,11 @@
-var passport = require("passport");
-var localStrategy = require("passport-local").Strategy;
-var User = require("../modules/user");
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
+var User = require('../modules/user');
 
-// Store this user"s unique id in the session for later reference
+// Store this user's unique id in the session for later reference
 // Stores info on req.session.passport.user
 passport.serializeUser(function(user, done) {
-  console.log("serialized: ", user);
+  console.log('serialized: ', user);
   done(null, user.id);
 });
 
@@ -15,14 +15,14 @@ passport.deserializeUser(function(id, done) {
       done(err);
     }
 
-    console.log("-----------------------------------------------\ndeserialized: ", user.id);
+    console.log('-----------------------------------------------\ndeserialized: ', user.id);
     done(null, user);
   });
 });
 
-passport.use("local", new localStrategy({
+passport.use('local', new localStrategy({
   passReqToCallback: true,
-  usernameField: "username"
+  usernameField: 'username'
   }, function(req, username, password, done) {
     // Mongoose stuff
     User.findOne({username: username}, function(err, user) {
@@ -31,8 +31,8 @@ passport.use("local", new localStrategy({
       }
 
       if(!user) {
-        console.log("userStrategy.js :: no user found");
-        return done(null, false, {message: "Incorrect credentials."});
+        console.log('userStrategy.js :: no user found');
+        return done(null, false, {message: 'Incorrect credentials.'});
       } else {
             user.comparePassword(password, function(err, isMatch) {
               if(err) {
@@ -40,11 +40,11 @@ passport.use("local", new localStrategy({
               }
 
           if(isMatch) {
-            console.log("userStrategy.js :: all good");
+            console.log('userStrategy.js :: all good');
             return(done(null, user));
           } else {
-            console.log("userStrategy.js :: password incorrect");
-            done(null, false, {message: "Incorrect credentials."});
+            console.log('userStrategy.js :: password incorrect');
+            done(null, false, {message: 'Incorrect credentials.'});
           }
         });
       } // end else

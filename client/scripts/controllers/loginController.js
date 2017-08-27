@@ -1,28 +1,28 @@
-myApp.controller("LoginController", ["$scope", "$http", "$location", "UserService", function($scope, $http, $location, UserService) {
+myApp.controller('LoginController', ['$scope', '$http', '$location', 'UserService', function($scope, $http, $location, UserService) {
 
     $scope.user = {
-      username: "",
-      password: ""
+      username: '',
+      password: ''
     };
-    // $scope.message = "";
+    // $scope.message = '';
 
     $scope.login = function() {
-      if($scope.user.username === "" || $scope.user.password === "") {
-        // $scope.message = "Please enter your username and password";
+      if($scope.user.username === '' || $scope.user.password === '') {
+        // $scope.message = 'Please enter your username and password';
         alert(
-          "You forgot to enter something in. Please enter your username and password."
+          'You forgot to enter something in. Please enter your username and password.'
         );
       } else {
-        $http.post("/", $scope.user).then(function(response) {
+        $http.post('/', $scope.user).then(function(response) {
           if(response.data.username) {
-            console.log("success: ", response.data);
+            console.log('success: ', response.data);
             // location works with SPA (ng-route)
-            $location.path("/user");
+            $location.path('/user');
           } else {
-            console.log("failure: ", response);
-            // $scope.message = "Your username/password was incorrect. Please try again.";
+            console.log('failure: ', response);
+            // $scope.message = 'Your username/password was incorrect. Please try again.';
             alert(
-              "Your username or password was incorrect. Please try again."
+              'Your username or password was incorrect. Please try again.'
             );
           }
         });
@@ -30,22 +30,22 @@ myApp.controller("LoginController", ["$scope", "$http", "$location", "UserServic
     };
 
     $scope.registerUser = function() {
-      if($scope.user.username === "" || $scope.user.password === "") {
-        // $scope.message = "Please choose a username and password";
+      if($scope.user.username === '' || $scope.user.password === '') {
+        // $scope.message = 'Please choose a username and password';
         alert(
-          "You forgot to enter something in. Please choose a username and password."
+          'You forgot to enter something in. Please choose a username and password.'
         );
       } else {
-        // console.log("sending to server...", $scope.user);
-        $http.post("/register", $scope.user).then(function(response) {
-          console.log("success");
-          $location.path("/home");
+        // console.log('sending to server...', $scope.user);
+        $http.post('/register', $scope.user).then(function(response) {
+          console.log('success');
+          $location.path('/home');
         },
         function(response) {
-          console.log("error");
-          // $scope.message = "Please try again";
+          console.log('error');
+          // $scope.message = 'Please try again';
           alert(
-            "Please try again."
+            'Please try again.'
           );
         });
       }

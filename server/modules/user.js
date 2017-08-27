@@ -1,8 +1,8 @@
 // Sets up Users Table in Mongo
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require("bcrypt");
+var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
 // Mongoose Schema
@@ -12,10 +12,10 @@ var UserSchema = new Schema({
 });
 
 // Called before adding a new user to the DB. Encrypts password.
-UserSchema.pre("save", function(next) {
+UserSchema.pre('save', function(next) {
     var user = this;
 
-    if(!user.isModified("password")) {
+    if(!user.isModified('password')) {
       return next();
     }
 
@@ -28,16 +28,13 @@ UserSchema.pre("save", function(next) {
             if(err) {
               return next(err);
             }
-            //IF WE WERE TO CONSOLE LOG RIGHT MEOW, user.password is unencrypted
             user.password = hash;
             next();
         });
     });
 });
 
-// Used by login methods to compare login form password to DB password
 UserSchema.methods.comparePassword = function(candidatePassword, callback) {
-    // "this" here refers to this instance of the User model
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if(err) {
           return callback(err);
@@ -46,4 +43,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, callback) {
     });
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);

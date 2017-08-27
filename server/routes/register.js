@@ -1,16 +1,16 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-var passport = require("passport");
-var Users = require("../modules/user");
-var path = require("path");
+var passport = require('passport');
+var Users = require('../modules/user');
+var path = require('path');
 
 // Handles request for HTML file
-router.get("/", function(req, res, next) {
-    res.sendFile(path.resolve(__dirname, "../public/views/templates/register.html"));
+router.get('/', function(req, res, next) {
+    res.sendFile(path.resolve(__dirname, '../public/views/templates/register.html'));
 });
 
 // Handles POST request with new user data
-router.post("/", function(req, res, next) {
+router.post('/', function(req, res, next) {
 
     var userToSave = {
       username : req.body.username,
@@ -21,7 +21,7 @@ router.post("/", function(req, res, next) {
          if(err) {
            next(err);
          } else {
-          res.redirect("/");
+          res.redirect('/');
          }
     });
 });
