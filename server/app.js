@@ -4,16 +4,16 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var path = require("path");
 
-// var passport = require("./strategies/userStrategy");
-// var session = require("express-session");
+var passport = require("./strategies/userStrategy");
+var session = require("express-session");
 
 // Route includes
 var index = require("./routes/index");
 
 // user routes go here
 
-// var user = require("./routes/user");
-// var register = require("./routes/register");
+var user = require("./routes/user");
+var register = require("./routes/register");
 
 // custom routes go here
 
@@ -26,21 +26,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("./server/public"));
 
 // Passport Session Configuration //
-// app.use(session({
-//    secret: "secret",
-//    key: "user",
-//    resave: "true",
-//    saveUninitialized: false,
-//    cookie: { maxage: 60000, secure: false }
-// }));
+app.use(session({
+   secret: "secret",
+   key: "user",
+   resave: "true",
+   saveUninitialized: false,
+   cookie: { maxage: 60000, secure: false }
+}));
 
 // start up passport sessions
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
-// app.use("/register", register);
-// app.use("/user", user);
+app.use("/register", register);
+app.use("/user", user);
+
 // custom routes go here
 
 app.use("/", index);
@@ -56,7 +57,7 @@ if(process.env.MONGODB_URI !== undefined) {
     // mongoURI = "mongodb://bairdcraig10:xbr2nma3@ds133261.mlab.com:33261/new_mongo_db";
 }
 
-// var mongoURI = "mongodb://localhost:27017/passport";
+var mongoURI = "mongodb://localhost:27017/passport";
 var mongoDB = mongoose.connect(mongoURI).connection;
 
 mongoDB.on("error", function(err){

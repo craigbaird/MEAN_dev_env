@@ -25,8 +25,7 @@ myApp.config(["$routeProvider", "$locationProvider",
     })
     .when("/mainPage", {
       templateUrl: "/views/templates/mainPage.html",
-      controller: "FindByIngController",
-      controllerAs: "recipe",
+      controller: "MainPageController",
       resolve: {
         getuser : ["UserService", function(UserService){
           return UserService.getuser();
